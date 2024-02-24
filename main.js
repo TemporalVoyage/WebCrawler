@@ -1,15 +1,20 @@
-const { getURLsFromHTML } = require('./crawl.js')
+const { crawlPage } = require('./crawl.js')
 
-const html = `<html>
-<body>
-    <a href="https://blog.boot.dev"><span>Go to Boot.dev</span></a>
-    <a href="https://blog.boot.dev"><span>Go to Boot.dev</span></a>
-    <a href="https://blog.boot.dev"><span>Go to Boot.dev</span></a>
-    <a href="https://blog.boot.dev"><span>Go to Boot.dev</span></a>
-    <a href="https://blog.boot.dev"><span>Go to Boot.dev</span></a>
-    <a href="/path/to/location"><span>Go to Boot.dev</span></a>
-</body>
-</html>
-`;
+async function main(){
+    if (process.argv.length < 3){
+      console.log('a website is needed');
+      return;
+    }
+    if (process.argv.length > 3){
+      console.log('you provided too many arguments');
+      return;
+    }
+  
+    const baseURL = process.argv[2];
+  
+    console.log(`starting to crawl: ${baseURL}`);
 
-getURLsFromHTML(html,'');
+    await crawlPage(baseURL);
+  }
+  
+  main();
